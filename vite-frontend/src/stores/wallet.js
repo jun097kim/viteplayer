@@ -1,12 +1,14 @@
-import { decorate, observable, action } from "mobx";
+import { observable, action } from "mobx";
 import { wallet, utils } from "@vite/vitejs";
 import vite from "lib/vite";
 
 const { account } = wallet;
 
 class WalletStore {
+  @observable
   accountInstance = null;
 
+  @action
   integrateWallet = () => {
     const accountInstance = new account({
       privateKey: utils.ed25519.keyPair().secretKey,
@@ -29,10 +31,5 @@ class WalletStore {
       });
   };
 }
-
-decorate(decorate, {
-  accountInstance: observable,
-  integrateWallet: action
-});
 
 export default WalletStore;
