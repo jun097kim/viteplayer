@@ -9,9 +9,7 @@ class AppTemplate extends Component {
     return (
       <Fragment>
         <Grommet className="AppTemplate">
-          <Box align="center" background="neutral-2">
-            {children}
-          </Box>
+          <Box align="center">{children}</Box>
         </Grommet>
       </Fragment>
     );
