@@ -1,6 +1,6 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import { AuthTemplate, Login, Register } from "components/auth";
+import React from 'react';
+import { Route } from 'react-router-dom';
+import { AuthTemplate, Login, Register } from 'components/auth';
 
 const Auth = () => {
   return (

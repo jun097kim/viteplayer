@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
-import { Grommet, Box } from "grommet";
-import "./AppTemplate.scss";
+import React, { Component, Fragment } from 'react';
+import { Grommet, Box } from 'grommet';
+import './AppTemplate.scss';
 
 class AppTemplate extends Component {
   render() {
