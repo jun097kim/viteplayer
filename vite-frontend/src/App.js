@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import AppTemplate from "components/base/AppTemplate";
+import DevTools from "mobx-react-devtools";
+
 import { Wallet } from "pages";
 
 import * as LedgerAPI from "lib/vite/ledger";
@@ -17,6 +19,7 @@ class App extends Component {
     return (
       <AppTemplate>
         <Route path="/wallet" component={Wallet} />
+        {process.env.NODE_ENV === "development" && <DevTools />}
       </AppTemplate>
     );
   }

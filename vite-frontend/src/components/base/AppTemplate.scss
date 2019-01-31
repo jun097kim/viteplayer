@@ -1,0 +1,10 @@
+.AppTemplate {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  .Sections {
+    flex: 1;
+    position: relative;
+  }
+}
