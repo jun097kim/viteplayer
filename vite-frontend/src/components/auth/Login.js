@@ -1,18 +1,54 @@
-import React from 'react';
-import { Box, FormField, TextInput, Button } from 'grommet';
+import React, { Component } from 'react';
+import * as AuthAPI from 'lib/api/auth';
+import { Box, FormField, TextInput, Button, Heading } from 'grommet';
 
-const Login = () => {
-  return (
-    <Box>
-      <FormField label="ID">
-        <TextInput />
-      </FormField>
-      <FormField label="Password">
-        <TextInput type="password" />
-      </FormField>
-      <Button label="Login" primary />
-    </Box>
-  );
-};
+class Login extends Component {
+  state = {
+    email: '',
+    password: ''
+  };
+
+  handleChange = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleLogin = () => {
+    const { email, password } = this.state;
+    const { history } = this.props;
+    AuthAPI.login({
+      email,
+      password
+    }).then(res => {
+      history.push('/success');
+    });
+  };
+
+  render() {
+    const { email, password } = this.state;
+
+    return (
+      <Box>
+        <Heading>Login</Heading>
+        <FormField label="Email">
+          <TextInput name="email" value={email} onChange={this.handleChange} />
+        </FormField>
+        <FormField label="Password">
+          <TextInput
+            type="password"
+            name="password"
+            value={password}
+            onChange={this.handleChange}
+          />
+        </FormField>
+        <Button label="Login" onClick={this.handleLogin} primary />
+      </Box>
+    );
+  }
+}
 
 export default Login;

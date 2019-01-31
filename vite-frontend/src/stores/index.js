@@ -1,1 +1,1 @@
-export { default as WalletStore } from "./wallet";
+export { default as WalletStore } from './wallet';

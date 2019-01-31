@@ -1,7 +1,8 @@
 import React from 'react';
+import { Box } from 'grommet';
 
 const AuthTemplate = ({ children }) => {
-  return <div>{children}</div>;
+  return <Box width="medium">{children}</Box>;
 };
 
 export default AuthTemplate;
