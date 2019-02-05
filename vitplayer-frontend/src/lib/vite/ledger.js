@@ -18,17 +18,16 @@ export const getSnapshotChainHeight = () => {
 export const getVmLogList = () => {
   websocket.onopen = () => {
     websocket.onmessage = function(str) {
-      console.log('Someone sent: ', str);
+      const data = JSON.parse(str.data);
+      console.log(data.result[0]);
     };
 
     websocket.send(
       JSON.stringify(
         jsonrpc.request(1, 'ledger_getVmLogList', [
-          'c6d05c585edbbcfd60409f70834819e80020ba8301448930657ba63e3598c1db'
+          '5c58668fb882fc0363786206314c9a44bd0d95fc45d4bb24f6ffe4423acd03c9'
         ])
       )
     );
   };
-
-  console.log('getVmLogList:', ledger);
 };
