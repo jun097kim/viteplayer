@@ -8,13 +8,21 @@ set -x
 #ffmpeg -i $1  -c copy -f segment -segment_time 10 -reset_timestamps 1 $1_%02d.mp4
 
 DURATION=`ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $1`
+DURATION=`awk "BEGIN{print (int($DURATION)+($DURATION>int($DURATION)))}"`
 
-filename=$(basename -- "$1")
-extension="${filename##*.}"
-filename="${filename%.*}"
+# script absolute path
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
-for ((i=0;i<62;i+=10))
+FILENAME=$(basename -- "$1")
+EXTENSION="${FILENAME##*.}"
+FILENAME="${FILENAME%.*}"
+
+VIDEOPATH=${SCRIPTPATH}/${FILENAME}
+
+mkdir ${VIDEOPATH}
+
+for ((i=0;i<$DURATION;i+=10))
 do
-	ffmpeg -y -i $1 -ss $i -t $((i+10)) $filename-$i.$extension
-	shasum $i.mp4 >> hash_list.dat
+	ffmpeg -y -i $1 -ss $i -t $((i+10)) ${VIDEOPATH}/${FILENAME}-$i.${EXTENSION}
+	shasum ${VIDEOPATH}/${FILENAME}-$i.${EXTENSION} >> ${SCRIPTPATH}/hash_list.dat
 done
