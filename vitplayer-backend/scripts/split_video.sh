@@ -20,6 +20,7 @@ mkdir ${VIDEOPATH}
 
 for ((i=0;i<$DURATION;i+=10))
 do
-	ffmpeg -y -i $1 -ss $i -t $((i+10)) -codec copy -reset_timestamps 1 ${VIDEOPATH}/$i.mp4
+	# -codec copy: without re-encoding
+	ffmpeg -y -i $1 -ss $i -t $((i+10)) -codec copy ${VIDEOPATH}/$i.mp4
 	#shasum ${VIDEOPATH}/${FILENAME}-$i.${EXTENSION} >> ${SCRIPTPATH}/hash_list.dat
 done

@@ -2,8 +2,32 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const exec = require('child_process').exec;
+const Video = require('../../../models/video');
+const crypto = require('crypto');
 
 const DIR_PATH = path.resolve(__dirname, '../../../../uploads');
+const SCRIPT_PATH = path.resolve(__dirname, '../../../../scripts');
+
+const saveVideoHash = videoPath => {
+  const splitedVideoPath = path.join(SCRIPT_PATH, videoPath);
+
+  return new Promise((resolve, reject) => {
+    fs.readdir(splitedVideoPath, (err, files) => {
+      const hashList = [];
+      files.forEach(file => {
+        const videoFile = path.join(splitedVideoPath, file);
+        const s = fs.readFileSync(videoFile);
+        const shasum = crypto.createHash('sha1');
+
+        const startTime = path.parse(file).name; // splited video name without extension
+        const hashStr = shasum.update(s).digest('hex');
+
+        hashList.push({ startTime, hashStr });
+      });
+      resolve(hashList);
+    });
+  });
+};
 
 const splitVideo = videoPath => {
   const absolutePath = path.resolve(DIR_PATH, videoPath);
@@ -16,6 +40,10 @@ const splitVideo = videoPath => {
           reject(error);
         }
         console.log(stdout);
+        saveVideoHash(videoPath).then(hashList => {
+          console.log(hashList);
+          Video.create(videoPath, hashList);
+        });
         resolve(videoPath);
       }
     );
@@ -57,7 +85,9 @@ exports.upload = (req, res) => {
   });
 
   videoUpload
-    .then(path => splitVideo(path))
+    .then(path => {
+      return splitVideo(path);
+    })
     .then(() => {
       res.json({ msg: 'success' });
     })
