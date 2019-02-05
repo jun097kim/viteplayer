@@ -58,8 +58,8 @@ exports.upload = (req, res) => {
 
   videoUpload
     .then(path => splitVideo(path))
-    .then(path => {
-      res.json({ path });
+    .then(() => {
+      res.json({ msg: 'success' });
     })
     .catch(err => {
       res.status(403).json({

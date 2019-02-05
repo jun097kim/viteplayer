@@ -24,7 +24,7 @@ class Login extends Component {
       email,
       password
     }).then(res => {
-      history.push('/success');
+      history.push('/upload');
     });
   };
 

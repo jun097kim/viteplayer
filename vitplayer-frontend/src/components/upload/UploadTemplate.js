@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import Uppy from '@uppy/core';
-import { DragDrop } from '@uppy/react';
+import { Dashboard } from '@uppy/react';
 import './UploadTemplate.scss';
 import '@uppy/core/dist/style.css';
 import '@uppy/drag-drop/dist/style.css';
+import '@uppy/status-bar/dist/style.css';
+import '@uppy/progress-bar/dist/style.css';
+import '@uppy/dashboard/dist/style.css';
 const XHRUpload = require('@uppy/xhr-upload');
 
 class UploadTemplate extends Component {
@@ -11,7 +14,8 @@ class UploadTemplate extends Component {
     super();
     this.uppy = Uppy({ autoProceed: true }).use(XHRUpload, {
       endpoint: '/api/video/upload',
-      fieldName: 'video'
+      fieldName: 'video',
+      timeout: 0
     });
 
     this.uppy.on('complete', result => {
@@ -27,7 +31,7 @@ class UploadTemplate extends Component {
   render() {
     return (
       <div>
-        <DragDrop uppy={this.uppy} note="Support only videos" />
+        <Dashboard uppy={this.uppy} />
       </div>
     );
   }
