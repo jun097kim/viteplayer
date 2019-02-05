@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import AppTemplate from 'components/base/AppTemplate';
 import DevTools from 'mobx-react-devtools';
 
-import { Wallet, Auth } from 'pages';
+import { Wallet, Auth, Upload } from 'pages';
 
 import * as LedgerAPI from 'lib/vite/ledger';
 import * as ClientAPI from 'lib/vite/client';
@@ -20,6 +20,7 @@ class App extends Component {
       <AppTemplate>
         <Route path="/wallet" component={Wallet} />
         <Route path="/auth" component={Auth} />
+        <Route path="/upload" component={Upload} />
         {process.env.NODE_ENV === 'development' && <DevTools />}
       </AppTemplate>
     );
