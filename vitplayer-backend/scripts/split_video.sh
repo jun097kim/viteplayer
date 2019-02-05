@@ -14,15 +14,12 @@ DURATION=`awk "BEGIN{print (int($DURATION)+($DURATION>int($DURATION)))}"`
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
 FILENAME=$(basename -- "$1")
-EXTENSION="${FILENAME##*.}"
-FILENAME="${FILENAME%.*}"
-
 VIDEOPATH=${SCRIPTPATH}/${FILENAME}
 
 mkdir ${VIDEOPATH}
 
 for ((i=0;i<$DURATION;i+=10))
 do
-	ffmpeg -y -i $1 -ss $i -t $((i+10)) ${VIDEOPATH}/${FILENAME}-$i.${EXTENSION}
-	shasum ${VIDEOPATH}/${FILENAME}-$i.${EXTENSION} >> ${SCRIPTPATH}/hash_list.dat
+	ffmpeg -y -i $1 -ss $i -t $((i+10)) -codec copy -reset_timestamps 1 ${VIDEOPATH}/$i.mp4
+	#shasum ${VIDEOPATH}/${FILENAME}-$i.${EXTENSION} >> ${SCRIPTPATH}/hash_list.dat
 done
