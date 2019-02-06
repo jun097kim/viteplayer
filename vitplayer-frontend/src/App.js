@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
 import AppTemplate from 'components/base/AppTemplate';
 import DevTools from 'mobx-react-devtools';
 
@@ -7,9 +7,26 @@ import { Wallet, Auth, Upload } from 'pages';
 
 import * as LedgerAPI from 'lib/vite/ledger';
 import * as ClientAPI from 'lib/vite/client';
+import { inject } from 'mobx-react';
 
+@withRouter
+@inject(stores => ({
+  login: stores.auth.login
+}))
 class App extends Component {
+  constructor() {
+    super();
+    this.loggedInfo = JSON.parse(localStorage.getItem('loggedInfo'));
+  }
+
+  initializeUserInfo = () => {
+    if (!this.loggedInfo) return;
+    const { login } = this.props;
+    login(this.loggedInfo);
+  };
+
   componentDidMount() {
+    this.initializeUserInfo();
     LedgerAPI.getSnapshotChainHeight();
     LedgerAPI.getVmLogList();
     ClientAPI.getAccountBlock();

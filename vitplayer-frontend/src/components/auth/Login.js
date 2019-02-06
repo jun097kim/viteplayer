@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { inject } from 'mobx-react';
 import * as AuthAPI from 'lib/api/auth';
 import { Box, FormField, TextInput, Button, Heading } from 'grommet';
 
+@inject(stores => ({
+  login: stores.auth.login
+}))
 class Login extends Component {
   state = {
     email: '',
@@ -19,11 +23,14 @@ class Login extends Component {
 
   handleLogin = () => {
     const { email, password } = this.state;
-    const { history } = this.props;
+    const { login, history } = this.props;
+
     AuthAPI.login({
       email,
       password
     }).then(res => {
+      const { loggedInfo } = res.data;
+      login(loggedInfo);
       history.push('/upload');
     });
   };

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Header.scss';
-import { Box, Text, Anchor } from 'grommet';
+import { Box, Text } from 'grommet';
+import HeaderNav from './HeaderNav';
 
 const Header = () => {
   return (
@@ -9,12 +10,7 @@ const Header = () => {
         <a href="/">vitplayer</a>
       </Text>
       <Box direction="row" flex={{ shrink: 0 }}>
-        <Anchor href="/auth/login" margin={{ horizontal: '1rem' }}>
-          Login
-        </Anchor>
-        <Anchor href="/auth/register" margin={{ horizontal: '1rem' }}>
-          Register
-        </Anchor>
+        <HeaderNav />
       </Box>
     </Box>
   );

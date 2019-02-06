@@ -6,12 +6,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'mobx-react';
-import { WalletStore } from './stores';
+import { WalletStore, AuthStore } from './stores';
 
 const wallet = new WalletStore();
+const auth = new AuthStore();
 
 ReactDOM.render(
-  <Provider wallet={wallet}>
+  <Provider wallet={wallet} auth={auth}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
