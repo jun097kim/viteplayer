@@ -3,7 +3,15 @@ import { withRouter, Route } from 'react-router-dom';
 import AppTemplate from 'components/base/AppTemplate';
 import DevTools from 'mobx-react-devtools';
 
-import { Wallet, Auth, Upload, Video, Verify, VerifyResult } from 'pages';
+import {
+  Landing,
+  Wallet,
+  Auth,
+  Upload,
+  Video,
+  Verify,
+  VerifyResult
+} from 'pages';
 
 import * as LedgerAPI from 'lib/vite/ledger';
 import * as ClientAPI from 'lib/vite/client';
@@ -35,6 +43,7 @@ class App extends Component {
   render() {
     return (
       <AppTemplate>
+        <Route path="/" component={Landing} exact />
         <Route path="/wallet" component={Wallet} />
         <Route path="/auth" component={Auth} />
         <Route path="/upload" component={Upload} />

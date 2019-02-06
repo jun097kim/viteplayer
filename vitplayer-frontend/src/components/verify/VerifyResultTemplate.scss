@@ -1,19 +1,19 @@
 .VerifyResultTemplate {
   .matches {
     display: flex;
+    font-size: 0.9rem;
 
-    .blue {
-      width: 55px;
-      height: 5px;
-      background-color: #339af0;
+    .bar {
+      width: 100px;
+      height: 10px;
       margin-right: 2px;
-    }
 
-    .red {
-      width: 55px;
-      height: 5px;
-      background-color: #ff6b6b;
-      margin-right: 2px;
+      &.blue {
+        background-color: #339af0;
+      }
+      &.red {
+        background-color: #ff6b6b;
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 import './VerifyResultTemplate.scss';
 
@@ -8,7 +9,7 @@ const getMatches = comparedHash => {
     matches.push(
       <div className="part" key={key}>
         <div>{key}</div>
-        <div className={value ? 'blue' : 'red'} />
+        <div className={classNames('bar', value ? 'blue' : 'red')} />
       </div>
     );
   }

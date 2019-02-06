@@ -25,34 +25,36 @@ class VideoTemplate extends Component {
     const { history } = this.props;
 
     return (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableCell scope="col" border="bottom">
-              VideoName
-            </TableCell>
-            <TableCell scope="col" border="bottom">
-              CreatedAt
-            </TableCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {videos.map(video => (
-            <>
-              <TableRow
-                onClick={() => {
-                  history.push(`/verify?id=${video._id}`);
-                }}
-              >
-                <TableCell scope="row">
-                  <strong>{video.videoName}</strong>
-                </TableCell>
-                <TableCell>{video.createdAt}</TableCell>
-              </TableRow>
-            </>
-          ))}
-        </TableBody>
-      </Table>
+      <div className="VideoTemplate">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableCell scope="col" border="bottom">
+                Video Name
+              </TableCell>
+              <TableCell scope="col" border="bottom">
+                Upload Date
+              </TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {videos.map(video => (
+              <>
+                <TableRow
+                  onClick={() => {
+                    history.push(`/verify?id=${video._id}`);
+                  }}
+                >
+                  <TableCell scope="row">
+                    <strong>{video.videoName}</strong>
+                  </TableCell>
+                  <TableCell>{video.createdAt}</TableCell>
+                </TableRow>
+              </>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     );
   }
 }

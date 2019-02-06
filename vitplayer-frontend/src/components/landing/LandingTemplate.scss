@@ -1,0 +1,18 @@
+.LandingTemplate {
+  display: flex;
+  align-items: center;
+
+  .left {
+    width: 750px;
+
+    .title {
+      font-size: 2.6rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+    }
+  }
+}

@@ -10,7 +10,9 @@ class AppTemplate extends Component {
     return (
       <Grommet className="AppTemplate">
         <Header />
-        <Box align="center">{children}</Box>
+        <Box align="center" margin={{ vertical: 'large' }}>
+          {children}
+        </Box>
       </Grommet>
     );
   }

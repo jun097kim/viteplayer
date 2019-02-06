@@ -19,6 +19,9 @@ const HeaderNav = inject('auth')(
     } else {
       return (
         <>
+          <Anchor href="/video" margin={{ horizontal: '1rem' }}>
+            Video
+          </Anchor>
           <Anchor href="/upload" margin={{ horizontal: '1rem' }}>
             Upload
           </Anchor>
