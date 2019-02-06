@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as VideoAPI from 'lib/api/video';
 import { Table, TableHeader, TableBody, TableRow, TableCell } from 'grommet';
@@ -38,10 +38,10 @@ class VideoTemplate extends Component {
         </TableHeader>
         <TableBody>
           {videos.map(video => (
-            <Fragment>
+            <>
               <TableRow
                 onClick={() => {
-                  history.push(`/verification?id=${video._id}`);
+                  history.push(`/verify?id=${video._id}`);
                 }}
               >
                 <TableCell scope="row">
@@ -49,7 +49,7 @@ class VideoTemplate extends Component {
                 </TableCell>
                 <TableCell>{video.createdAt}</TableCell>
               </TableRow>
-            </Fragment>
+            </>
           ))}
         </TableBody>
       </Table>

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Anchor } from 'grommet';
 
@@ -7,18 +7,18 @@ const HeaderNav = inject('auth')(
     if (!auth.isLogged) {
       console.log(auth.isLogged);
       return (
-        <Fragment>
+        <>
           <Anchor href="/auth/login" margin={{ horizontal: '1rem' }}>
             Login
           </Anchor>
           <Anchor href="/auth/register" margin={{ horizontal: '1rem' }}>
             Register
           </Anchor>
-        </Fragment>
+        </>
       );
     } else {
       return (
-        <Fragment>
+        <>
           <Anchor href="/upload" margin={{ horizontal: '1rem' }}>
             Upload
           </Anchor>
@@ -32,7 +32,7 @@ const HeaderNav = inject('auth')(
           >
             Logout
           </Anchor>
-        </Fragment>
+        </>
       );
     }
   })

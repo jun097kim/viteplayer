@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Grommet, Box } from 'grommet';
 import './AppTemplate.scss';
 import Header from './Header';
