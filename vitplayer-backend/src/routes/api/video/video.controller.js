@@ -97,3 +97,22 @@ exports.upload = (req, res) => {
       });
     });
 };
+
+/*
+    POST /api/video/list
+*/
+
+exports.list = (req, res) => {
+  Video.find().then(videos => {
+    res.json(videos);
+  });
+};
+
+/*
+    POST /api/video/verification
+*/
+
+exports.verification = (req, res) => {
+  // 검증 요청 영상 업로드
+  // 각 구간을 비교하여 {startTime, boolean} 배열로 반환
+};

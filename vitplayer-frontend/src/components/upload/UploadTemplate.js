@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Uppy from '@uppy/core';
 import { Dashboard } from '@uppy/react';
 import './UploadTemplate.scss';
@@ -9,9 +10,10 @@ import '@uppy/progress-bar/dist/style.css';
 import '@uppy/dashboard/dist/style.css';
 const XHRUpload = require('@uppy/xhr-upload');
 
+@withRouter
 class UploadTemplate extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.uppy = Uppy({ autoProceed: true }).use(XHRUpload, {
       endpoint: '/api/video/upload',
       fieldName: 'video',
@@ -21,6 +23,13 @@ class UploadTemplate extends Component {
     this.uppy.on('complete', result => {
       console.log('successful files:', result.successful);
       console.log('failed files:', result.failed);
+    });
+  }
+
+  componentDidMount() {
+    const { history } = this.props;
+    this.uppy.on('upload-success', (file, body) => {
+      history.push('/video');
     });
   }
 
