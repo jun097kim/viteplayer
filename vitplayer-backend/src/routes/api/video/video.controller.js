@@ -12,8 +12,8 @@ const saveVideoHash = videoPath => {
   const splitedVideoPath = path.join(SCRIPT_PATH, videoPath);
 
   return new Promise((resolve, reject) => {
+    const hashList = [];
     fs.readdir(splitedVideoPath, (err, files) => {
-      const hashList = [];
       files.forEach(file => {
         const videoFile = path.join(splitedVideoPath, file);
         const s = fs.readFileSync(videoFile);
@@ -24,7 +24,7 @@ const saveVideoHash = videoPath => {
 
         hashList.push({ startTime, hashStr });
       });
-      resolve(hashList);
+      resolve({ videoPath, hashList });
     });
   });
 };
@@ -40,10 +40,6 @@ const splitVideo = videoPath => {
           reject(error);
         }
         console.log(stdout);
-        saveVideoHash(videoPath).then(hashList => {
-          console.log(hashList);
-          Video.create(videoPath, hashList);
-        });
         resolve(videoPath);
       }
     );
@@ -85,8 +81,10 @@ exports.upload = (req, res) => {
   });
 
   videoUpload
-    .then(path => {
-      return splitVideo(path);
+    .then(path => splitVideo(path))
+    .then(path => saveVideoHash(path))
+    .then(({ videoPath, hashList }) => {
+      return Video.create(videoPath, hashList);
     })
     .then(() => {
       res.json({ msg: 'success' });
@@ -109,10 +107,75 @@ exports.list = (req, res) => {
 };
 
 /*
-    POST /api/video/verification
+    POST /api/video/verify
 */
 
-exports.verification = (req, res) => {
+exports.uploadAndVerity = (req, res) => {
+  console.log('req.params:', req.params);
+
   // 검증 요청 영상 업로드
-  // 각 구간을 비교하여 {startTime, boolean} 배열로 반환
+  const upload = multer({
+    storage: multer.diskStorage({
+      // specity path and file name
+      destination: function(req, file, cb) {
+        cb(null, DIR_PATH);
+      },
+      filename: function(req, file, cb) {
+        cb(null, new Date().valueOf() + '_test_' + file.originalname); // timestamp + original file name
+      }
+    })
+  }).single('video');
+
+  const videoUpload = new Promise((resolve, reject) => {
+    if (!fs.existsSync(DIR_PATH)) {
+      fs.mkdirSync(DIR_PATH);
+    }
+
+    upload(req, res, err => {
+      if (err) reject(err);
+      if (!req.file) reject(new Error('file does not exist'));
+      resolve(req.file.filename);
+    });
+  });
+
+  // 각 구간을 비교하여 {startTime: boolean} 배열로 반환
+  const compareHashList = testHash => {
+    return new Promise((resolve, reject) => {
+      Video.findOne({ _id: req.params.id }).then(video => {
+        const originalHash = video.hashList;
+
+        const comparedHash = {};
+        for (let i = 0; i < originalHash.length; i++) {
+          const startTime = originalHash[i].startTime;
+
+          let match = false;
+          if (testHash[i] && testHash[i].startTime) {
+            if (
+              originalHash[i].startTime === testHash[i].startTime &&
+              originalHash[i].hashStr === testHash[i].hashStr
+            ) {
+              match = true;
+            }
+          }
+
+          comparedHash[startTime] = match;
+        }
+
+        resolve(comparedHash);
+      });
+    });
+  };
+
+  videoUpload
+    .then(path => splitVideo(path))
+    .then(path => saveVideoHash(path))
+    .then(({ videoPath, hashList }) => compareHashList(hashList))
+    .then(comparedHash => {
+      res.json(comparedHash);
+    })
+    .catch(err => {
+      res.status(403).json({
+        message: err
+      });
+    });
 };
