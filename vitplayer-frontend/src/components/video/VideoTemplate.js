@@ -26,6 +26,7 @@ class VideoTemplate extends Component {
 
     return (
       <div className="VideoTemplate">
+        <p className="title">Video List</p>
         <Table>
           <TableHeader>
             <TableRow>

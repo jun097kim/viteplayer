@@ -39,7 +39,8 @@ class UploadTemplate extends Component {
 
   render() {
     return (
-      <div>
+      <div className="UploadTemplate">
+        <p className="title">Upload Video</p>
         <Dashboard uppy={this.uppy} />
       </div>
     );

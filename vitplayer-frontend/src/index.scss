@@ -9,3 +9,12 @@ body {
   box-sizing: inherit;
   font-family: "Noto Sans", sans-serif;
 }
+
+p {
+  font-size: 1.7rem;
+
+  &.title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+}

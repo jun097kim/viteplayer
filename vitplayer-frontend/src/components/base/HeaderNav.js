@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { Anchor } from 'grommet';
 
@@ -41,4 +42,4 @@ const HeaderNav = inject('auth')(
   })
 );
 
-export default HeaderNav;
+export default withRouter(HeaderNav);
