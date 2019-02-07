@@ -29,7 +29,7 @@ class VerifyTemplate extends Component {
     this.uppy.on('upload-success', (file, body) => {
       history.push({
         pathname: '/result',
-        state: { comparedHash: body }
+        state: { result: body }
       });
     });
   }

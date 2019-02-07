@@ -30,6 +30,9 @@ class VideoTemplate extends Component {
           <TableHeader>
             <TableRow>
               <TableCell scope="col" border="bottom">
+                Video No
+              </TableCell>
+              <TableCell scope="col" border="bottom">
                 Video Name
               </TableCell>
               <TableCell scope="col" border="bottom">
@@ -38,7 +41,7 @@ class VideoTemplate extends Component {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {videos.map(video => (
+            {videos.map((video, index) => (
               <>
                 <TableRow
                   onClick={() => {
@@ -46,8 +49,9 @@ class VideoTemplate extends Component {
                   }}
                 >
                   <TableCell scope="row">
-                    <strong>{video.videoName}</strong>
+                    <strong>{index + 1}</strong>
                   </TableCell>
+                  <TableCell>{video.videoName}</TableCell>
                   <TableCell>{video.createdAt}</TableCell>
                 </TableRow>
               </>

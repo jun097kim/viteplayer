@@ -1,6 +1,16 @@
 .VerifyResultTemplate {
+  p {
+    font-size: 1.7rem;
+
+    &.title {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  }
+
   .matches {
     display: flex;
+    justify-content: center;
     font-size: 0.9rem;
 
     .bar {
@@ -15,5 +25,9 @@
         background-color: #ff6b6b;
       }
     }
+  }
+
+  .hashes {
+    margin: 5rem 0;
   }
 }
