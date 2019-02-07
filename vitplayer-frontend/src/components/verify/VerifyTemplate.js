@@ -41,6 +41,7 @@ class VerifyTemplate extends Component {
   render() {
     return (
       <div className="VerifyTemplate">
+        <p className="title">Verify Video</p>
         <DragDrop uppy={this.uppy} note="Please upload a video to verify" />
       </div>
     );
