@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import * as AuthAPI from 'lib/api/auth';
-import { Box, FormField, TextInput, Button, Heading } from 'grommet';
+import { Box, Form, FormField, TextInput, Button, Heading } from 'grommet';
 
 @inject(stores => ({
   login: stores.auth.login
@@ -41,18 +41,27 @@ class Login extends Component {
     return (
       <Box>
         <Heading>Login</Heading>
-        <FormField label="Email">
-          <TextInput name="email" value={email} onChange={this.handleChange} />
-        </FormField>
-        <FormField label="Password">
-          <TextInput
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />
-        </FormField>
-        <Button label="Login" onClick={this.handleLogin} primary />
+        <Form onSubmit={this.handleLogin}>
+          <FormField label="Email">
+            <TextInput
+              type="email"
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+              required
+            />
+          </FormField>
+          <FormField label="Password">
+            <TextInput
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+              required
+            />
+          </FormField>
+          <Button type="submit" label="Login" primary />
+        </Form>
       </Box>
     );
   }

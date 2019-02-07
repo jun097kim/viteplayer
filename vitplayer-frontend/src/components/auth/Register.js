@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as AuthAPI from 'lib/api/auth';
-import { Box, FormField, TextInput, Button, Heading } from 'grommet';
+import { Box, Form, FormField, TextInput, Button, Heading } from 'grommet';
 
 class Register extends Component {
   state = {
@@ -32,13 +32,15 @@ class Register extends Component {
     return (
       <Box>
         <Heading>Register</Heading>
-        <FormField label="Email">
-          <TextInput />
-        </FormField>
-        <FormField label="Password">
-          <TextInput type="password" />
-        </FormField>
-        <Button label="Register" onClick={this.handleRegister} primary />
+        <Form onSubmit={this.handleRegister}>
+          <FormField label="Email">
+            <TextInput type="email" required />
+          </FormField>
+          <FormField label="Password">
+            <TextInput type="password" required />
+          </FormField>
+          <Button type="submit" label="Register" primary />
+        </Form>
       </Box>
     );
   }
