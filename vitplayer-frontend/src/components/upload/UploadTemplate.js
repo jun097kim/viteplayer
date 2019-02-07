@@ -29,7 +29,7 @@ class UploadTemplate extends Component {
   componentDidMount() {
     const { history } = this.props;
     this.uppy.on('upload-success', (file, body) => {
-      history.push('/video');
+      history.push('/list');
     });
   }
 

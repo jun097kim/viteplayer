@@ -47,7 +47,7 @@ class App extends Component {
         <Route path="/wallet" component={Wallet} />
         <Route path="/auth" component={Auth} />
         <Route path="/upload" component={Upload} />
-        <Route path="/video" component={Video} />
+        <Route path="/list" component={Video} />
         <Route path="/verify" component={Verify} />
         <Route path="/result" component={VerifyResult} />
         {process.env.NODE_ENV === 'development' && <DevTools />}
