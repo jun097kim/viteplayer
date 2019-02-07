@@ -14,9 +14,9 @@ DURATION=`awk "BEGIN{print (int($DURATION)+($DURATION>int($DURATION)))}"`
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
 FILENAME=$(basename -- "$1")
-VIDEOPATH=${SCRIPTPATH}/${FILENAME}
+VIDEOPATH=${SCRIPTPATH}/videos/${FILENAME}
 
-mkdir ${VIDEOPATH}
+mkdir -p ${VIDEOPATH}
 
 for ((i=0;i<$DURATION;i+=10))
 do

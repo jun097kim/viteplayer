@@ -9,7 +9,7 @@ const DIR_PATH = path.resolve(__dirname, '../../../../uploads');
 const SCRIPT_PATH = path.resolve(__dirname, '../../../../scripts');
 
 const saveVideoHash = videoPath => {
-  const splitedVideoPath = path.join(SCRIPT_PATH, videoPath);
+  const splitedVideoPath = path.join(SCRIPT_PATH, 'videos', videoPath);
 
   return new Promise((resolve, reject) => {
     const hashList = [];
@@ -161,7 +161,7 @@ exports.uploadAndVerity = (req, res) => {
           comparedHash[startTime] = match;
         }
 
-        resolve(comparedHash);
+        resolve({ comparedHash, originalHash, testHash });
       });
     });
   };
@@ -170,8 +170,8 @@ exports.uploadAndVerity = (req, res) => {
     .then(path => splitVideo(path))
     .then(path => saveVideoHash(path))
     .then(({ videoPath, hashList }) => compareHashList(hashList))
-    .then(comparedHash => {
-      res.json(comparedHash);
+    .then(({ comparedHash, originalHash, testHash }) => {
+      res.json({ comparedHash, originalHash, testHash });
     })
     .catch(err => {
       res.status(403).json({
