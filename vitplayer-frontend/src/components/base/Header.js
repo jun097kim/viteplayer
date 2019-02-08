@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <Box className="Header" direction="row" justify="between" margin="large">
       <Text className="logo" size="xlarge" weight="bold">
-        <a href="/">vitplayer</a>
+        <a href="/">viteplayer</a>
       </Text>
       <Box direction="row" flex={{ shrink: 0 }}>
         <HeaderNav />

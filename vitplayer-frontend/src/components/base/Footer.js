@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <Box justify="between" margin="large">
       <Box direction="row" align="center">
-        <Paragraph margin="none">© 2019 Vitplayer</Paragraph>
+        <Paragraph margin="none">© 2019 Viteplayer</Paragraph>
       </Box>
     </Box>
   );
